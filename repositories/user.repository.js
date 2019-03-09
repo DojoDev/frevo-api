@@ -22,7 +22,7 @@ class userRepository {
 
     async create(data) {
         let userCreate = await this._base.create(data);
-        return this._base._model.findById(userCreate._id), this._projection
+        return this._base._model.findById(userCreate._id, this._projection)
     }
 
     async update(id, data) {
