@@ -6,6 +6,7 @@ const variables = require('../bin/config/variables');
 //Routers
 const categoryRouter = require('../routes/category.router');
 const productRouter = require('../routes/product.router');
+const userRouter = require('../routes/user.router');
 
 //Criando/Invocando a Api/Server Web do Express
 const app = express();
@@ -15,11 +16,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 //Conectando o Banco de Dados
-mongoose.connect(variables.Database.connection);
+mongoose.connect(variables.Database.connection, { useNewUrlParser: true, useCreateIndex : true});
 
 //Configurando as rotas
 app.use('/api/category', categoryRouter);
 app.use('/api/product', productRouter);
+app.use('/api/user', userRouter);
 
 //Exportando nossa Api
 module.exports = app;
