@@ -1,11 +1,11 @@
 'use strict'
 
-require('../models/user.model');
-
 const repository = require('../repositories/user.repository');
 const validation = require('../bin/helpers/validations');
 const ctrBase = require('../bin/base/controller.base');
 const _repo = new repository();
+
+//Depences token generate
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const variable = require('../bin/config/variables');

@@ -1,36 +1,45 @@
 'use strict'
-require('../models/category.model');
+
 const repository = require('../repositories/category.repository');
+const validation = require('../bin/helpers/validations');
+const ctrBase = require('../bin/base/controller.base');
+const _repo = new repository();
 
 function categoryController() {
 
 }
 
 categoryController.prototype.post = async (req, res) => {
-    let result = await new repository().create(req.body);
-    res.status(201).send(result);
+    let _validationContract = new validation();
+     
+    _validationContract.isRequired(req.body.title, 'Titulo é obrigatório');
+    _validationContract.isRequired(req.body.image, 'A Imagem é obrigatório');
+    
+    ctrBase.post(_repo, _validationContract, req, res);
  };
 
 categoryController.prototype.put = async (req, res) => { 
-    let result = await new repository().update(req.params.id, req.body);
-    res.status(202).send(result);
+    let _validationContract = new validation();
+     
+    _validationContract.isRequired(req.body.title, 'Titulo é obrigatório');
+    _validationContract.isRequired(req.body.image, 'A Imagem é obrigatório');
+    _validationContract.isRequired(req.params.id, 'O id que será atualizado é obrigatório!');
+    
+    ctrBase.put(_repo, _validationContract, req, res);
 };
 
 
 categoryController.prototype.get = async (req, res) => { 
-    let list = await new repository().getAll();
-    res.status(200).send(list);
+   ctrBase.get(_repo, req, res);
 };
 
 categoryController.prototype.getById = async (req, res) => { 
-    let meetCategory = await new repository().getById(req.params.id)
-    res.status(200).send(meetCategory);
+    ctrlBase.getById(_repo, req, res);
 };
 
 
 categoryController.prototype.delete = async (req, res) => { 
-    let deletado = await new repository().delete(req.params.id);
-    res.status(204).send(deletado);
+   ctrlBase.delete(_repo, req, res);
 };
 
 module.exports = categoryController;

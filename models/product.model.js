@@ -5,9 +5,9 @@ const schema =  mongoose.Schema;
 const productModel = new schema({
   name: {type: String,required: true, trim: true, index: true},
   description:{type:String, require: true},
-  price:{type:Number, required: true},
+  price:{type:Number, required: true, default: 0},
   image:{type:String, requires: true},
-  active:{type: Boolean, required: true},
+  active:{type: Boolean, required: true, default: true},
   created: { type: Date, default: Date.now }
 }, {versionKey:false});
 
